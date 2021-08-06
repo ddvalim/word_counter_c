@@ -22,30 +22,36 @@ int substring_count(char* string, char* substring) {
 int conta_palavras(int argc, char *argv[]) {
     FILE *f;
     char palavra[256];
-    int words_counter = 0;
-
-    if (argc != 3) {
+    int words_counter[argc - 2];
+    for (int i=0; i<argc-2; i++){
+      words_counter[i] = 0;
+    }
+    if (argc < 3) {
         printf("Invalid arg count: %d\n", argc);
         exit(EXIT_FAILURE);
     }
 
-    f = fopen(argv[1], "rt");
-    if (f == NULL) {
-        printf("Could not open file %s\n", argv[1]);
-        exit(EXIT_FAILURE);
-    }
+    for(int i=2; i<argc; i++){
+      f = fopen(argv[1], "rt");
+      if (f == NULL) {
+          printf("Could not open file %s\n", argv[1]);
+          exit(EXIT_FAILURE);
+      }
 
-    fscanf(f, "%s", palavra);
-    while (!feof(f))
-    {
-        if (palavra){
-            words_counter += substring_count(palavra, argv[2]);
-        }
-        fscanf(f, "%s", palavra);
-    }
+      fscanf(f, "%s", palavra);
+      while (!feof(f))
+      {
+          if (palavra){
+              words_counter[i-2] += substring_count(palavra, argv[i]);
+          }
+          fscanf(f, "%s", palavra);
+      }
 
     fclose(f);
-    printf("word %s count: %d\n", argv[2], words_counter);
+    }
+    for(int i=2; i<argc; i++){
+      printf("word %s count: %d\n", argv[i], words_counter[i-2]);
+    }
     exit(EXIT_SUCCESS);
 }
 
