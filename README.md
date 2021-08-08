@@ -9,7 +9,7 @@
 <h1 align="center"> 
   Status do projeto
 </h1>
-<h4 align="center"> 🚀 Em andamento 🚀 </h4>
+<h4 align="center"> 🚀 Concluído 🚀 </h4>
 
 ### Tecnologia
 
